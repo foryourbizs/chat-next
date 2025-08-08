@@ -44,6 +44,9 @@ export interface CreateCharacterRequest {
   name: string;
   description: string;
   systemPrompt: string;
+  userId: number;
+  isActive: boolean;
+  usageCount: number;
 }
 
 export interface UpdateCharacterRequest {

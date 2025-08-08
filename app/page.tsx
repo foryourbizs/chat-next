@@ -16,7 +16,6 @@ import { ConversationList } from "@/components/conversation/conversation-list";
 import {
   useChatInitialization,
   useCreateConversation,
-  useDeleteConversation,
   useMessages,
   useSendMessage,
 } from "@/hooks/use-chat-api";
@@ -48,7 +47,6 @@ export default function ChatPage() {
   // API 훅들
   const sendMessageMutation = useSendMessage();
   const createConversationMutation = useCreateConversation();
-  const deleteConversationMutation = useDeleteConversation();
 
   // 현재 대화의 메시지들 조회
   const {
@@ -139,15 +137,6 @@ export default function ChatPage() {
     }
   };
 
-  // 대화 삭제
-  const handleDeleteConversation = async (conversationId: number) => {
-    try {
-      await deleteConversationMutation.mutateAsync(conversationId);
-    } catch (error) {
-      console.error("Failed to delete conversation:", error);
-    }
-  };
-
   // 초기 로딩 중
   if (isInitializing) {
     return (
@@ -189,13 +178,7 @@ export default function ChatPage() {
 
           {/* 대화 목록 섹션 */}
           <div className="flex-1">
-            <ConversationList
-              onCreateConversation={handleCreateConversation}
-              onDeleteConversation={handleDeleteConversation}
-              onEditConversation={() =>
-                toast.info("대화 편집 기능은 준비 중입니다")
-              }
-            />
+            <ConversationList onCreateConversation={handleCreateConversation} />
           </div>
         </div>
       </div>
@@ -224,10 +207,6 @@ export default function ChatPage() {
                     <div className="flex-1">
                       <ConversationList
                         onCreateConversation={handleCreateConversation}
-                        onDeleteConversation={handleDeleteConversation}
-                        onEditConversation={() =>
-                          toast.info("대화 편집 기능은 준비 중입니다")
-                        }
                       />
                     </div>
                   </div>

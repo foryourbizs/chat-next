@@ -27,8 +27,6 @@ export const chatbotApi = {
     return apiUtils.post<SendMessageResponse>("chatbot/send-message", data, {
       errorOptions: {
         showToast: true,
-        title: "메시지 전송 실패",
-        description: "AI와의 대화 중 오류가 발생했습니다.",
       },
     });
   },
@@ -45,7 +43,6 @@ export const charactersApi = {
     const response = await apiUtils.get<{ data: Character[] }>("characters", {
       errorOptions: {
         showToast: true,
-        title: "캐릭터 조회 실패",
       },
     });
     return response.data;
@@ -68,7 +65,6 @@ export const charactersApi = {
     return apiUtils.get<Character>(`characters/${id}`, {
       errorOptions: {
         showToast: true,
-        title: "캐릭터 조회 실패",
       },
     });
   },
@@ -83,8 +79,6 @@ export const charactersApi = {
       {
         errorOptions: {
           showToast: true,
-          title: "캐릭터 생성 실패",
-          description: "캐릭터를 생성하는 중 오류가 발생했습니다.",
         },
       }
     );
@@ -101,7 +95,6 @@ export const charactersApi = {
       {
         errorOptions: {
           showToast: true,
-          title: "캐릭터 수정 실패",
         },
       }
     );
@@ -115,7 +108,6 @@ export const charactersApi = {
     return apiUtils.delete<void>(`characters/${id}`, {
       errorOptions: {
         showToast: true,
-        title: "캐릭터 삭제 실패",
       },
     });
   },
@@ -134,7 +126,6 @@ export const conversationsApi = {
       {
         errorOptions: {
           showToast: true,
-          title: "대화 목록 조회 실패",
         },
       }
     );
@@ -159,7 +150,6 @@ export const conversationsApi = {
     return apiUtils.get<Conversation>(`conversations/${id}`, {
       errorOptions: {
         showToast: true,
-        title: "대화 조회 실패",
       },
     });
   },
@@ -174,8 +164,6 @@ export const conversationsApi = {
       {
         errorOptions: {
           showToast: true,
-          title: "대화 생성 실패",
-          description: "새 대화를 시작하는 중 오류가 발생했습니다.",
         },
       }
     );
@@ -195,7 +183,6 @@ export const conversationsApi = {
       {
         errorOptions: {
           showToast: true,
-          title: "대화 수정 실패",
         },
       }
     );
@@ -209,7 +196,6 @@ export const conversationsApi = {
     return apiUtils.delete<void>(`conversations/${id}`, {
       errorOptions: {
         showToast: true,
-        title: "대화 삭제 실패",
       },
     });
   },
@@ -226,7 +212,6 @@ export const messagesApi = {
     return apiUtils.get<Message[]>(`messages/conversation/${conversationId}`, {
       errorOptions: {
         showToast: true,
-        title: "메시지 조회 실패",
       },
     });
   },
@@ -254,7 +239,6 @@ export const messagesApi = {
     return apiUtils.get<Message>(`messages/${id}`, {
       errorOptions: {
         showToast: true,
-        title: "메시지 조회 실패",
       },
     });
   },
@@ -284,7 +268,7 @@ export const chatApiUtils = {
             lastMessage,
             messageCount: messages.length,
           } as ConversationWithLastMessage;
-        } catch (error) {
+        } catch {
           // 개별 대화의 메시지 조회 실패 시에도 대화는 포함
           return {
             ...conversation,

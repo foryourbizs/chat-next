@@ -71,7 +71,6 @@ export function CharacterCreateDialog({
   onCharacterCreated,
 }: CharacterCreateDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
 
   // React Hook Form 설정
   const form = useForm<CreateCharacterFormData>({
@@ -91,7 +90,6 @@ export function CharacterCreateDialog({
    */
   const resetForm = () => {
     form.reset();
-    setSelectedTemplate(null);
   };
 
   /**

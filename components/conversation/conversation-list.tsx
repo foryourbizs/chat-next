@@ -14,27 +14,20 @@ import type { ConversationWithLastMessage } from "@/types/chat";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { MessageCircle, Plus } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
 
 interface ConversationListProps {
   onCreateConversation?: () => void;
-  onEditConversation?: (conversation: ConversationWithLastMessage) => void;
-  onDeleteConversation?: (conversationId: number) => void;
   className?: string;
 }
 
 export function ConversationList({
   onCreateConversation,
-  onEditConversation,
-  onDeleteConversation,
   className,
 }: ConversationListProps) {
   const conversations = useConversations();
   const currentConversation = useCurrentConversation();
   const characters = useCharacters();
   const { setCurrentConversation, setSelectedCharacter } = useChatStore();
-  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   // 대화 선택 (연결된 캐릭터도 함께 선택)
   const handleSelectConversation = (
@@ -61,32 +54,29 @@ export function ConversationList({
     }
   };
 
-  // 대화 삭제
-  const handleDelete = async (conversationId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
+  // TODO: 대화 삭제 기능 (미구현)
+  // const handleDelete = async (conversationId: number, e: React.MouseEvent) => {
+  //   e.stopPropagation();
+  //   if (deletingId) return;
+  //   setDeletingId(conversationId);
+  //   try {
+  //     await onDeleteConversation?.(conversationId);
+  //     toast.success("대화가 삭제되었습니다");
+  //   } catch {
+  //     toast.error("대화 삭제에 실패했습니다");
+  //   } finally {
+  //     setDeletingId(null);
+  //   }
+  // };
 
-    if (deletingId) return;
-
-    setDeletingId(conversationId);
-
-    try {
-      await onDeleteConversation?.(conversationId);
-      toast.success("대화가 삭제되었습니다");
-    } catch (error) {
-      toast.error("대화 삭제에 실패했습니다");
-    } finally {
-      setDeletingId(null);
-    }
-  };
-
-  // 대화 편집
-  const handleEdit = (
-    conversation: ConversationWithLastMessage,
-    e: React.MouseEvent
-  ) => {
-    e.stopPropagation();
-    onEditConversation?.(conversation);
-  };
+  // TODO: 대화 편집 기능 (미구현)
+  // const handleEdit = (
+  //   conversation: ConversationWithLastMessage,
+  //   e: React.MouseEvent
+  // ) => {
+  //   e.stopPropagation();
+  //   onEditConversation?.(conversation);
+  // };
 
   // 날짜 포맷
   const formatDate = (dateString: string) => {

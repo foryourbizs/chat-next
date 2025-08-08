@@ -31,7 +31,7 @@ export function MessageItem({
       setCopied(true);
       toast.success("메시지가 복사되었습니다");
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
+    } catch {
       toast.error("복사에 실패했습니다");
     }
   };
